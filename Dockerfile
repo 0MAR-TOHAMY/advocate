@@ -33,6 +33,12 @@ ENV NEXT_TELEMETRY_DISABLED=1
 # Build the web application
 RUN cd web && pnpm build
 
+# ================= migrator =================
+FROM builder AS migrator
+WORKDIR /app/database
+ENV DATABASE_URL=${DATABASE_URL}
+
+
 # ================= runner =================
 FROM base AS runner
 WORKDIR /app
