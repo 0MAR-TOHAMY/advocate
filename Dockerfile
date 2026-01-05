@@ -24,6 +24,7 @@ COPY . .
 ENV NODE_ENV=production
 ENV AWS_ACCESS_KEY_ID=build_mock_key
 ENV AWS_SECRET_ACCESS_KEY=build_mock_secret
+ENV DATABASE_URL=postgresql://mock:mock@localhost:5432/mock
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Build the web application
