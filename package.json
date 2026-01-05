@@ -1,0 +1,13 @@
+{
+  "name": "legal-case-manager",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "database",
+    "web"
+  ],
+  "scripts": {
+    "clean": "rm -rf node_modules database/node_modules web/node_modules",
+    "install:all": "npm install"
+  }
+}

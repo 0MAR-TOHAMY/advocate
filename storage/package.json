@@ -1,0 +1,13 @@
+{
+  "name": "@legal-case-manager/storage",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "docker compose -f docker/docker-compose.yml --env-file .env up -d",
+    "stop": "docker compose -f docker/docker-compose.yml --env-file .env down",
+    "restart": "npm run stop && npm run start",
+    "logs": "docker compose -f docker/docker-compose.yml --env-file .env logs -f",
+    "ps": "docker compose -f docker/docker-compose.yml --env-file .env ps"
+  }
+}
+

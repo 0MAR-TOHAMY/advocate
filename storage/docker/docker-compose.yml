@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: legal_minio
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-admin123}
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000" # S3 API
+      - "9001:9001" # MinIO Console
+    volumes:
+      - minio_data:/data
+    networks:
+      - legal_network
+
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      - minio
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-admin123}
+    entrypoint: ["/bin/sh","-c"]
+    command: >-
+      "set -e;
+      until (mc alias set local http://minio:9000 $MINIO_ROOT_USER $MINIO_ROOT_PASSWORD); do sleep 2; done;
+      mc mb --ignore-existing local/documents;
+      echo 'MinIO initialized';"
+    networks:
+      - legal_network
+
+volumes:
+  minio_data:
+    driver: local
+
+networks:
+  legal_network:
+    driver: bridge
+

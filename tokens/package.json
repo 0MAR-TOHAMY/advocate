@@ -1,0 +1,32 @@
+{
+  "name": "@legal-case-manager/tokens",
+  "version": "1.0.0",
+  "description": "Redis token storage for Legal Case Manager",
+  "private": true,
+  "scripts": {
+    "db:start": "docker-compose up -d",
+    "db:stop": "docker-compose down",
+    "db:restart": "npm run db:stop && npm run db:start",
+    "db:logs": "docker logs -f legal_redis",
+    "db:status": "docker-compose ps",
+    "db:cli": "docker exec -it legal_redis redis-cli -a ${REDIS_PASSWORD:-strongredispassword}",
+    "db:info": "docker exec legal_redis redis-cli -a ${REDIS_PASSWORD:-strongredispassword} INFO",
+    "db:ping": "docker exec legal_redis redis-cli -a ${REDIS_PASSWORD:-strongredispassword} PING",
+    "db:flush": "docker exec legal_redis redis-cli -a ${REDIS_PASSWORD:-strongredispassword} FLUSHDB",
+    "db:flushall": "docker exec legal_redis redis-cli -a ${REDIS_PASSWORD:-strongredispassword} FLUSHALL",
+    "db:keys": "docker exec legal_redis redis-cli -a ${REDIS_PASSWORD:-strongredispassword} KEYS '*'",
+    "db:backup": "docker exec legal_redis redis-cli -a ${REDIS_PASSWORD:-strongredispassword} BGSAVE",
+    "db:monitor": "docker exec -it legal_redis redis-cli -a ${REDIS_PASSWORD:-strongredispassword} MONITOR",
+    "db:memory": "docker exec legal_redis redis-cli -a ${REDIS_PASSWORD:-strongredispassword} INFO memory",
+    "db:clients": "docker exec legal_redis redis-cli -a ${REDIS_PASSWORD:-strongredispassword} CLIENT LIST",
+    "db:reset": "npm run db:stop && docker volume rm legal_redis_data && npm run db:start"
+  },
+  "keywords": [
+    "redis",
+    "tokens",
+    "sessions",
+    "cache"
+  ],
+  "author": "Legal Case Manager",
+  "license": "PROPRIETARY"
+}

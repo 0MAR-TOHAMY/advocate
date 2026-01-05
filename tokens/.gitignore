@@ -1,0 +1,10 @@
+# Environment
+.env
+
+# Backups
+*.rdb
+*.aof
+backup-*
+
+# Logs
+*.log

@@ -1,0 +1,35 @@
+{
+  "name": "Advocate - Legal Case Management",
+  "short_name": "Advocate",
+  "description": "A modern legal case management system for law firms",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e40af",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "legal"],
+  "shortcuts": [
+    {
+      "name": "Cases",
+      "short_name": "Cases",
+      "description": "View all cases",
+      "url": "/cases",
+      "icons": [{ "src": "/logo.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Clients",
+      "short_name": "Clients",
+      "description": "View all clients",
+      "url": "/clients",
+      "icons": [{ "src": "/logo.png", "sizes": "96x96" }]
+    }
+  ]
+}

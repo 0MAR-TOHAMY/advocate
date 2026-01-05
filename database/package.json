@@ -1,0 +1,46 @@
+{
+  "name": "@legal-case-manager/database",
+  "version": "1.0.0",
+  "description": "PostgreSQL 18 database layer with Drizzle ORM for Legal Case Manager",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./schema/*": "./schema/*",
+    "./schema/tables/*": "./schema/tables/*",
+    "./schema/enums": "./schema/enums",
+    "./schema/relations": "./schema/relations"
+  },
+  "scripts": {
+    "db:start": "docker-compose -f docker/docker-compose.yml up -d",
+    "db:stop": "docker-compose -f docker/docker-compose.yml down",
+    "db:restart": "npm run db:stop && npm run db:start",
+    "db:logs": "docker logs -f legal_postgres",
+    "db:generate": "drizzle-kit generate --config=drizzle/drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config=drizzle/drizzle.config.ts",
+    "db:push": "drizzle-kit push --config=drizzle/drizzle.config.ts",
+    "db:studio": "drizzle-kit studio --config=drizzle/drizzle.config.ts",
+    "db:seed": "tsx drizzle/seed.ts",
+    "db:seed:events": "tsx drizzle/seed-events.ts",
+    "db:seed:plans": "tsx drizzle/seed-plans.ts",
+    "db:reset": "npm run db:stop && docker volume rm legal-case-manager_postgres_data && npm run db:start && npm run db:push && npm run db:seed",
+    "db:backup": "docker exec legal_postgres pg_dump -U root legal_case_manager > backup_$(date +%Y%m%d_%H%M%S).sql",
+    "db:restore": "docker exec -i legal_postgres psql -U root legal_case_manager < backup.sql",
+    "db:psql": "docker exec -it legal_postgres psql -U root -d legal_case_manager"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.33.0",
+    "nanoid": "^5.0.7",
+    "postgres": "^3.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "drizzle-kit": "^0.24.0",
+    "tsx": "^4.16.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
